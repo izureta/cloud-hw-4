@@ -5,7 +5,7 @@ phantom:
   ammo_type: uri
   load_profile:
     load_type: rps
-    schedule: line(1, 500, 5m)  # плавно поднимаем от 1 до 500 RPS за 5 минут
+    schedule: line(1, 500, 5m)
   uris:
     - /
   headers:
@@ -15,7 +15,6 @@ autostop:
   enabled: true
   package: yandextank.plugins.Autostop
   autostop:
-    - limit(6m)              # максимальная длина теста (line от 1 до 500 за 5м + запас)
+    - limit(6m)
     - http(5xx, 50%, 30s)
     - quantile(99, 3000, 30s)
-

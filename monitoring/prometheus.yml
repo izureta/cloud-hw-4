@@ -1,12 +1,12 @@
 global:
-  scrape_interval: 5s  # как часто Prometheus забирает метрики
+  scrape_interval: 5s
 
 scrape_configs:
   - job_name: 'node'
     static_configs:
-      - targets: ['YOUR_APP_IP:9100']  # <-- Node exporter на VM-1
+      - targets: ['YOUR_APP_IP:9100']
 
   - job_name: 'app'
     static_configs:
-      - targets: ['YOUR_APP_IP:8000']  # <-- Flask-приложение на VM-1
+      - targets: ['YOUR_APP_IP:8000']
     metrics_path: '/metrics'

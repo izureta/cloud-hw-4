@@ -9,7 +9,7 @@ services:
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--web.enable-lifecycle'  # позволяет делать reload через POST /-/reload вместо SIGHUP
+      - '--web.enable-lifecycle'
     ports:
       - "9090:9090"
     restart: unless-stopped

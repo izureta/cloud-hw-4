@@ -6,19 +6,19 @@ resource "yandex_loadtesting_agent" "hw4" {
     service_account_id = yandex_iam_service_account.load_testing.id
 
     resources {
-      memory        = 2   # Phantom при ≤10 POST RPS потребляет < 500MB
+      memory        = 2
       cores         = 2
-      core_fraction = 100  # генерация нагрузки CPU-bound — нужен полный fraction
+      core_fraction = 100
     }
 
     boot_disk {
       initialize_params {
-        size = 15  # минимальный размер, требуемый API Yandex Load Testing
+        size = 15
       }
     }
 
     network_interface {
-      subnet_id = yandex_vpc_subnet.hw4.id  # та же подсеть — видит VM-1 по внутреннему IP
+      subnet_id = yandex_vpc_subnet.hw4.id
       nat       = true
     }
 

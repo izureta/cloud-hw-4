@@ -16,7 +16,7 @@ REQUEST_COUNT = Counter(
 POST_LATENCY = Histogram(
     'app_post_latency_seconds',
     'Latency of successful POST requests in seconds',
-    buckets=[round(x * 0.01, 2) for x in range(1, 1001)],  # 0.01s..10.00s
+    buckets=[round(x * 0.01, 2) for x in range(1, 1001)],
 )
 
 app = Flask(__name__)

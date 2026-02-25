@@ -6,9 +6,6 @@ locals {
   ssh_key = file(pathexpand(var.ssh_public_key_path))
 }
 
-# VM-1: приложение + node exporter
-# 4GB нужны OpenCV DNN — инференс style transfer держит в памяти модель + буферы изображений
-# 100% fraction — CPU-bound задача, shared CPU замедлит инференс кратно
 resource "yandex_compute_instance" "app" {
   name        = "hw4-app"
   platform_id = "standard-v3"
@@ -23,13 +20,13 @@ resource "yandex_compute_instance" "app" {
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu.id
-      size     = 15  # Ubuntu + Docker + venv + модели (~500MB) укладываются в 15GB
+      size     = 15
     }
   }
 
   network_interface {
     subnet_id = yandex_vpc_subnet.hw4.id
-    nat       = true  # публичный IP для деплоя через scp/ssh
+    nat       = true
   }
 
   metadata = {
@@ -56,7 +53,6 @@ resource "yandex_compute_instance" "app" {
         - python3-venv
 
       runcmd:
-        # node exporter на порту 9100
         - docker run -d --restart=always --name=node-exporter
           --net=host --pid=host
           -v /:/host:ro,rslave
@@ -66,9 +62,6 @@ resource "yandex_compute_instance" "app" {
   }
 }
 
-# VM-2: Prometheus + Grafana
-# Prometheus ~200MB + Grafana ~300MB + OS = ~1GB, 2GB с запасом
-# 20% fraction достаточно — мониторинг не CPU-bound
 resource "yandex_compute_instance" "monitoring" {
   name        = "hw4-monitoring"
   platform_id = "standard-v3"
@@ -83,7 +76,7 @@ resource "yandex_compute_instance" "monitoring" {
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu.id
-      size     = 15  # Docker images prometheus+grafana ~1GB, данные за пару часов теста < 1GB
+      size     = 15
     }
   }
 
