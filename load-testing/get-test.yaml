@@ -1,0 +1,21 @@
+phantom:
+  enabled: true
+  package: yandextank.plugins.Phantom
+  address: 192.168.10.4:8000
+  ammo_type: uri
+  load_profile:
+    load_type: rps
+    schedule: line(1, 500, 5m)  # плавно поднимаем от 1 до 500 RPS за 5 минут
+  uris:
+    - /
+  headers:
+    - "[Connection: keep-alive]"
+
+autostop:
+  enabled: true
+  package: yandextank.plugins.Autostop
+  autostop:
+    - limit(6m)              # максимальная длина теста (line от 1 до 500 за 5м + запас)
+    - http(5xx, 50%, 30s)
+    - quantile(99, 3000, 30s)
+

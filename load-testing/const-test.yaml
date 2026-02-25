@@ -1,0 +1,16 @@
+phantom:
+  enabled: true
+  package: yandextank.plugins.Phantom
+  address: 192.168.10.4:8000
+  ammo_type: phantom
+  ammofile: ammo.txt
+  load_profile:
+    load_type: rps
+    schedule: const(1, 2h)
+
+autostop:
+  enabled: true
+  package: yandextank.plugins.Autostop
+  autostop:
+    - limit(2h)
+

@@ -1,0 +1,18 @@
+phantom:
+  enabled: true
+  package: yandextank.plugins.Phantom
+  address: 192.168.10.4:8000
+  ammo_type: phantom  # сырые HTTP-запросы из ammo.txt
+  ammofile: ammo.txt  # загружается отдельно в UI Load Testing
+  load_profile:
+    load_type: rps
+    schedule: step(0.5, 10, 0.5, 40s)  # от 0.5 до 10 RPS, шаг 0.5, 40 секунд на шаг
+
+autostop:
+  enabled: true
+  package: yandextank.plugins.Autostop
+  autostop:
+    - limit(15m)             # step(0.5, 10, 0.5, 40s) = 20 шагов × 40с = ~13м
+    - http(5xx, 50%, 30s)
+    - quantile(99, 10000, 30s)
+
