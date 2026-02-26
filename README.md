@@ -18,6 +18,8 @@ curl -sS -o out.jpg \
   -F "model=mosaic" \
   -F "image=@./lenna.jpg" \
   "$BASE_URL/“
+
+curl -sS "$BASE_URL/metrics" | head
 ```
 
 Вернется out.jpg - lenna.jpg в стиле мозайки
