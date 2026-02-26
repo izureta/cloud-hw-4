@@ -21,3 +21,7 @@ curl -sS -o out.jpg \
 ```
 
 Вернется out.jpg - lenna.jpg в стиле мозайки
+
+Grafana Dashboard:
+
+http://130.193.42.164:3000/goto/dfef6lzheczcwb?orgId=1
