@@ -1,6 +1,6 @@
 **Cloud HW 4**
 
-POST-Test results: https://load-testing-iliakruchinin-post.website.yandexcloud.net/
+POST-Test results: https://load-testing-results-iliakruchinin.website.yandexcloud.net/
 
 GET-Test results: https://load-testing-iliakruchinin-get.website.yandexcloud.net/
 
